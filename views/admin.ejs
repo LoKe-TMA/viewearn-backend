@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .card { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+    .btn { padding: 5px 10px; margin: 5px; cursor: pointer; }
+    .approve { background: #10b981; color: white; }
+    .reject { background: #ef4444; color: white; }
+  </style>
+</head>
+<body>
+  <h1>👨‍💼 Admin Dashboard</h1>
+
+  <h2>Users</h2>
+  <% users.forEach(u => { %>
+    <div class="card">
+      <p><strong>ID:</strong> <%= u.telegramId %></p>
+      <p><strong>Username:</strong> <%= u.username %></p>
+      <p><strong>Balance:</strong> <%= u.balance %> coins</p>
+    </div>
+  <% }) %>
+
+  <h2>Withdrawals</h2>
+  <% withdrawals.forEach(w => { %>
+    <div class="card">
+      <p><strong>User:</strong> <%= w.userId %></p>
+      <p><strong>Wallet:</strong> <%= w.wallet %></p>
+      <p><strong>Amount:</strong> <%= w.amount %> coins</p>
+      <p><strong>Status:</strong> <%= w.status %></p>
+      <form method="POST" action="/admin/withdrawals/<%= w._id %>/approve">
+        <button class="btn approve">✅ Approve</button>
+      </form>
+      <form method="POST" action="/admin/withdrawals/<%= w._id %>/reject">
+        <button class="btn reject">❌ Reject</button>
+      </form>
+    </div>
+  <% }) %>
+</body>
+</html>
